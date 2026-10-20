@@ -21,7 +21,7 @@ from PyQt6.QtWidgets import (
 from ui.styles import STYLE_SHEET
 from ui.views.ffmpeg_view import FFmpegView
 from ui.views.welcome_view import WelcomeView
-
+from ui.views.model_view import ModelView
 
 def set_dark_title_bar(window):
     if sys.platform == "win32":
@@ -42,6 +42,8 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+
+        self.selected_model = "small"
 
         self.setWindowTitle("WhisperScribe")
         self.resize(850, 480)
@@ -78,6 +80,12 @@ class MainWindow(QMainWindow):
         root_layout.addWidget(self.stacked_widget)
         self.setCentralWidget(root_widget)
 
+
+        self.model_view = ModelView()
+        self.model_view.model_selected.connect(self._on_model_selected)
+        self.model_view.continue_requested.connect(self._on_continue_clicked)
+        self.stacked_widget.addWidget(self.model_view)
+
     def _on_start_clicked(self):
         self.stacked_widget.setCurrentIndex(1)
         self.ffmpeg_view.start_verification()
@@ -92,6 +100,17 @@ class MainWindow(QMainWindow):
         print(
             "FFmpeg verificado -> Listo para cargar la Pantalla 3 (Selector de Modelos)."
         )
+
+    def _go_to_model_screen(self):
+        self.stacked_widget.setCurrentIndex(2)
+
+    def _on_model_selected(self, model_key: str):
+        self.selected_model = model_key
+        print(f"Modelo seleccionado: {self.selected_model}")
+
+    def _on_continue_clicked(self):
+        print(f"Continuando con el modelo: {self.selected_model}")
+        # self.stacked_widget.setCurrentIndex(3) # Para cuando hagamos la siguiente pantalla
 
 
 if __name__ == "__main__":
