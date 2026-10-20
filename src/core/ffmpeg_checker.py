@@ -5,17 +5,21 @@ import sys
 import urllib.request
 import zipfile
 
-
 """Pipeline:
-    1. Comprobación: Verifica si 'ffmpeg.exe' ya existe en la carpeta 'bin/'
-    añadiéndola al PATH del sistema.
+    1. Comprobación: Verifica si 'ffmpeg.exe' ya existe en la carpeta 'bin/' añadiéndola al PATH del sistema.
     2. Consulta de API: Si no existe, pide a la API de GitHub la URL del paquete más reciente.
-    3. Descarga y extracción: Descarga el ZIP oficial en memoria, extrae ÚNICAMENTE el
-       ejecutable 'ffmpeg.exe' dentro de 'bin/' y elimina el ZIP temporal.
+    3. Descarga y extracción: Descarga el ZIP oficial en memoria, extrae ÚNICAMENTE el ejecutable 'ffmpeg.exe' dentro de 'bin/' y elimina el ZIP temporal.
     4. Registro: Añade la carpeta 'bin/' al PATH activo para la sesión.
-    """
+"""
 
-def ensure_ffmpeg() -> bool:
+
+def ensure_ffmpeg(status_callback=None) -> bool:
+
+    def notify(msg: str):
+        print(msg)
+        if status_callback:
+            status_callback(msg)
+
     bin_folder = Path(__file__).resolve().parent.parent.parent / "bin"
     bin_folder.mkdir(exist_ok=True)
 
@@ -26,9 +30,10 @@ def ensure_ffmpeg() -> bool:
         os.environ["PATH"] = (
             f"{bin_folder}{os.pathsep}{os.environ.get('PATH', '')}"
         )
+        notify("SUCCESS: FFmpeg detectado en bin/")
         return True
 
-    print("FFmpeg no encontrado en 'bin/'. Descargando versión más reciente...")
+    notify("ERROR: FFmpeg no encontrado en 'bin/'. Buscando versión en GitHub...")
 
     try:
         api_url = (
@@ -51,12 +56,14 @@ def ensure_ffmpeg() -> bool:
         )
 
         if not download_url:
-            print("No se encontró el paquete de FFmpeg en GitHub.")
+            notify("FAILED: No se encontró el paquete de FFmpeg en GitHub.")
             return False
 
+        notify("Descargando paquete de FFmpeg desde GitHub...")
         zip_path = bin_folder / "ffmpeg.zip"
         urllib.request.urlretrieve(download_url, zip_path)
 
+        notify("Descomprimiendo ffmpeg.exe en la carpeta bin/...")
         with zipfile.ZipFile(zip_path, "r") as zip_file:
             for item in zip_file.namelist():
                 if item.endswith(exe_name):
@@ -72,9 +79,9 @@ def ensure_ffmpeg() -> bool:
         os.environ["PATH"] = (
             f"{bin_folder}{os.pathsep}{os.environ.get('PATH', '')}"
         )
-        print("FFmpeg descargado e instalado correctamente.")
+        notify("SUCCESS: FFmpeg instalado y configurado correctamente.")
         return True
 
     except Exception as e:
-        print(f"Error al obtener FFmpeg: {e}")
+        notify(f"FAILED: Error al obtener FFmpeg: {e}")
         return False

@@ -13,7 +13,7 @@ from core.ffmpeg_checker import ensure_ffmpeg
 from core.transcriber import Transcriber
 from core.utils import guardar_transcripcion
 
-NOMBRE_AUDIO = "Test_audio.m4a"
+NOMBRE_AUDIO = "TestRecording.m4a"
 
 def main():
 
