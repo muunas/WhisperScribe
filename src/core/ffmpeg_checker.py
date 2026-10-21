@@ -30,10 +30,10 @@ def ensure_ffmpeg(status_callback=None) -> bool:
         os.environ["PATH"] = (
             f"{bin_folder}{os.pathsep}{os.environ.get('PATH', '')}"
         )
-        notify("SUCCESS: FFmpeg detectado en bin/")
+        notify("SUCCESS: FFmpeg detected in bin/")
         return True
 
-    notify("ERROR: FFmpeg no encontrado en 'bin/'. Buscando versión en GitHub...")
+    notify("ERROR: FFmpeg not found in 'bin/'. Searching version on GitHub...")
 
     try:
         api_url = (
@@ -56,14 +56,14 @@ def ensure_ffmpeg(status_callback=None) -> bool:
         )
 
         if not download_url:
-            notify("FAILED: No se encontró el paquete de FFmpeg en GitHub.")
+            notify("FAILED: We couldn't find the file in github")
             return False
 
-        notify("Descargando paquete de FFmpeg desde GitHub...")
+        notify("Downloading FFmpeg from github...")
         zip_path = bin_folder / "ffmpeg.zip"
         urllib.request.urlretrieve(download_url, zip_path)
 
-        notify("Descomprimiendo ffmpeg.exe en la carpeta bin/...")
+        notify("Decompressing ffmpeg.exe in bin/...")
         with zipfile.ZipFile(zip_path, "r") as zip_file:
             for item in zip_file.namelist():
                 if item.endswith(exe_name):
@@ -79,7 +79,7 @@ def ensure_ffmpeg(status_callback=None) -> bool:
         os.environ["PATH"] = (
             f"{bin_folder}{os.pathsep}{os.environ.get('PATH', '')}"
         )
-        notify("SUCCESS: FFmpeg instalado y configurado correctamente.")
+        notify("SUCCESS: FFmpeg has been installed correctly")
         return True
 
     except Exception as e:

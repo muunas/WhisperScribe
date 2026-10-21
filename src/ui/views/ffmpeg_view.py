@@ -4,8 +4,7 @@ from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 
 class FFmpegWorker(QThread):
-    """Hilo secundario"""
-
+    
     status_changed = pyqtSignal(str)
     finished_signal = pyqtSignal(bool)
 
@@ -15,8 +14,7 @@ class FFmpegWorker(QThread):
 
 
 class FFmpegView(QWidget):
-    """Verificación de ffmpeg"""
-
+    
     check_finished = pyqtSignal(bool)
 
     def __init__(self):

@@ -137,4 +137,96 @@ QPushButton#ContinueButton:hover {
 QPushButton#ContinueButton:pressed {
     background-color: #0a0a0c;
 }
+
+/* Tarjeta de selección de archivos */
+QFrame#AudioDropCard {
+    background-color: #141416;
+    border: 1px solid #28282c;
+    border-radius: 12px;
+}
+
+/* Título de la sección de audio */
+QLabel#AudioTitle {
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    color: #6320ee;
+}
+
+/* Nombre del archivo seleccionado */
+QLabel#FileNameLabel {
+    font-size: 14px;
+    font-style: italic;
+    color: #9898a0;
+}
+
+/* Nombre del archivo seleccionado */
+QLabel#FileNameLabel {
+    font-size: 14px;
+    font-style: italic;
+    color: #9898a0;
+}
+
+/* Tarjeta de Progreso */
+QFrame#ProgressCard {
+    background-color: #141416;
+    border: 1px solid #28282c;
+    border-radius: 12px;
+}
+
+/* Título de la sección de progreso */
+QLabel#ProgressTitle {
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    color: #6320ee;
+}
+
+/* Estado de la transcripción (TextLabel1) */
+QLabel#ProgressStatusLabel {
+    font-size: 14px;
+    font-style: italic;
+    color: #d1d1d6;
+}
+
+/* Etiqueta de porcentaje */
+QLabel#PercentageLabel {
+    font-size: 13px;
+    font-style: italic;
+    color: #9898a0;
+}
+
+/* Barra de progreso personalizada */
+QProgressBar {
+    background-color: #1c1c20;
+    border: 1px solid #28282c;
+    border-radius: 6px;
+    max-height: 12px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: #6320ee;
+    border-radius: 5px;
+}
+/* Botón de descarga de la transcripción */
+QPushButton#DownloadButton {
+    background-color: #6320ee;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 8px 16px;
+}
+
+QPushButton#DownloadButton:hover {
+    background-color: #7230ff;
+}
+
+QPushButton#DownloadButton:disabled {
+    background-color: #1c1c20;
+    color: #444448;
+    border: 1px solid #28282c;
+}
 """

@@ -37,7 +37,7 @@ class WelcomeView(QWidget):
         layout.addWidget(text_block, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addSpacing(35)
 
-        start_button = QPushButton("Comenzar")
+        start_button = QPushButton("Start")
         start_button.setObjectName("ActionButton")
         start_button.setFixedWidth(260)
         start_button.setCursor(Qt.CursorShape.PointingHandCursor)
