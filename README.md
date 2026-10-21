@@ -1,54 +1,56 @@
 # WhisperScribe
 
-> Transcripciones de audio locales, ultra-rápidas, 100% gratuitas y con privacidad absoluta. Olvídate de las suscripciones en la nube y las tarifas por minuto.
+> Local, ultra-fast, 100% free audio transcriptions with absolute privacy. Forget about cloud subscriptions and per-minute fees.
 
 ---
 
-## El Problema
+## The Problem
 
-En la actualidad, procesar voz a texto con alta precisión suele implicar contrapartidas frustrantes:
-1. **Costes ocultos y suscripciones:** Los servicios líderes en la nube cobran por minuto transcrito, lo que penaliza proyectos personales o flujos de trabajo con grandes volúmenes de audio.
-2. **Brechas de privacidad:** Enviar archivos de audio personales, reuniones corporativas o entrevistas sensibles a servidores de terceros vulnera la confidencialidad de los datos.
-3. **Infierno de configuración:** Las soluciones locales basadas en IA suelen requerir configuraciones avanzadas de hardware, tarjetas gráficas dedicadas (NVIDIA/CUDA) y dependencias de C++ muy frágiles que se rompen constantemente en entornos de escritorio (especialmente en Windows).
-
----
-
-## La Solución: WhisperScribe
-
-**WhisperScribe** democratiza el acceso a la tecnología de transcripción de vanguardia de OpenAI (`Whisper`) empaquetándola en una aplicación de escritorio nativa, moderna y elegante. 
-
-Está diseñada bajo una premisa clara: **ejecutarse íntegramente en tu propia máquina (Local-First)**, aprovechando la optimización extrema de `faster-whisper` para ofrecer resultados profesionales sin coste, sin conexión a internet obligatoria y con **cero fugas de datos**.
+Today, high-accuracy speech-to-text processing often comes with frustrating trade-offs:
+1. **Hidden costs and subscriptions:** Leading cloud services charge per transcribed minute, punishing personal projects or workflows involving large volumes of audio.
+2. **Privacy risks:** Sending personal audio files, corporate meetings, or sensitive interviews to third-party servers compromises data confidentiality.
+3. **Configuration headaches:** Local AI solutions usually require complex hardware setups, dedicated graphics cards (NVIDIA/CUDA), and fragile C++ dependencies that constantly break on desktop environments (especially Windows).
 
 ---
 
-## Características Principales
+## The Solution: WhisperScribe
 
-*   **100% Gratuito y Sin Límites:** Sin pasarelas de pago, registros ni restricciones en la duración o cantidad de archivos que procesas.
-*   **Privacidad Absoluta:** Tus datos nunca abandonan tu disco duro. Ideal para periodistas, desarrolladores, investigadores y profesionales que manejan información confidencial.
-*   **Diseño Moderno e Interfaz Fluida (PyQt6):** Una UI minimalista en modo oscuro diseñada desde cero (con prototipado previo en Figma), que guía al usuario paso a paso sin saturarlo.
-*   **Procesamiento Asíncrono Real (`QThreads`):** La interfaz nunca se congela. Un hilo secundario gestiona la IA mientras la barra de progreso y los estados se actualizan en tiempo real.
-*   **Ingesta Eficiente de Audio:** Mediante una arquitectura de tuberías con subprocesos de FFmpeg, el audio se decodifica directamente en la memoria RAM, evitando saturar el almacenamiento con archivos temporales en disco.
-*   **Exportación Nativa:** Guarda el resultado limpio de tus transcripciones en formato `.txt` con un solo clic a través del explorador de archivos nativo de tu sistema.
+**WhisperScribe** democratizes access to OpenAI's state-of-the-art transcription technology (`Whisper`) by packaging it into a native, modern, and sleek desktop application.
+
+It is built on a clear premise: **run entirely on your local machine (Local-First)**, leveraging the extreme optimization of `faster-whisper` to deliver professional-grade results with zero cost, no mandatory internet connection, and **zero data leaks**.
 
 ---
 
-## Decisiones de Ingeniería y Robustez
+## Key Features
 
-Como software diseñado para perdurar en el tiempo y evitar obsolescencias imprevistas, WhisperScribe implementa los siguientes estándares técnicos:
+*   **100% Free and Unlimited:** No paywalls, mandatory accounts, or limits on audio duration or file count.
+*   **Absolute Privacy:** Your data never leaves your hard drive. Ideal for journalists, developers, researchers, and professionals handling sensitive information.
+*   **Modern Design and Smooth UI (PyQt6):** A minimalist dark-mode interface designed from scratch (prototyped in Figma) that guides the user step by step without clutter.
+*   **True Asynchronous Processing (`QThreads`):** The interface never freezes. A background thread runs the AI engine while progress bars and status labels update in real time.
+*   **Efficient Audio Ingestion:** Powered by FFmpeg subprocess pipelines, audio is decoded directly into RAM, preventing disk clutter from temporary files.
+*   **Native Export:** Save your clean transcription text files (`.txt`) with a single click using your system's native file dialog.
 
-*   **Estrategia CPU-First con Cuantización `int8`:** Por defecto, el motor prioriza la ejecución optimizada en CPU utilizando cuantización de 8 bits. Esto garantiza una estabilidad total en Windows, eliminando los clásicos dolores de cabeza de las DLLs faltantes de CUDA sin sacrificar velocidad de manera perceptible.
-*   **Control estricto de dependencias:** Las versiones clave (como `faster-whisper`, `av` y `PyQt6`) están congeladas en el entorno para prevenir rupturas provocadas por actualizaciones automáticas de terceros.
-*   **Arquitectura Modular:** Separación estricta de responsabilidades entre la capa de presentación (`ui/views`), el orquestador de la ventana principal (`ui/main_window.py`), los hilos de computación (`core/worker.py`) y el motor de IA (`core/transcriber.py`).
+---
 
-## Stack Tecnológico
-*   **Python 3.10+ (Core logic)**
+## Engineering and Robustness Decisions
 
-*   **PyQt6 (Framework de interfaz gráfica de usuario nativa)**
+Built to last and avoid unexpected breakage over time, WhisperScribe incorporates the following technical standards:
 
-*   **faster-whisper (Implementación optimizada de CTranslate2 para los modelos de OpenAI)**
+*   **CPU-First Strategy with `int8` Quantization:** By default, the engine prioritizes optimized execution on CPU using 8-bit quantization. This guarantees rock-solid stability on Windows by eliminating CUDA DLL dependencies without noticeable speed penalties.
+*   **Strict Dependency Control:** Key package versions (such as `faster-whisper`, `av`, and `PyQt6`) are pinned to prevent breaking changes caused by automatic third-party updates.
+*   **Modular Architecture:** Strict separation of concerns between presentation layers (`ui/views`), window orchestration (`ui/main_window.py`), worker threads (`core/worker.py`), and the underlying AI engine (`core/transcriber.py`).
 
-*   **FFmpeg (Procesamiento multimedia en segundo plano)**
-  
-## Licencia
+---
 
-Este proyecto se distribuye bajo la licencia MIT. Siéntete libre de usarlo, modificarlo y adaptarlo a tus necesidades.
+## Tech Stack
+
+*   **Python 3.10+** (Core logic and workflow control)
+*   **PyQt6** (Native desktop GUI framework)
+*   **faster-whisper** (Optimized CTranslate2 engine for OpenAI Whisper models)
+*   **FFmpeg** (Background multimedia processing and stream extraction)
+
+---
+
+## License
+
+This project is distributed under the **MIT License**. Feel free to use, modify, and adapt it to your needs.
