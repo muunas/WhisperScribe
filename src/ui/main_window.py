@@ -1,4 +1,5 @@
 import sys
+import os
 from pathlib import Path
 
 """Facilitamos a python que encuentre la carpeta ui mas facilmente."""
@@ -8,6 +9,8 @@ if str(src_dir) not in sys.path:
 
 import ctypes
 from PyQt6.QtCore import QTimer, Qt
+from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import (
     QApplication,
     QFrame,
@@ -25,6 +28,13 @@ from ui.views.model_view import ModelView
 from ui.views.drop_view import DropView
 from ui.views.progress_view import ProgressView
 from core.transcription_worker import TranscriptionWorker
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 def set_dark_title_bar(window):
     if sys.platform == "win32":
@@ -55,6 +65,9 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(STYLE_SHEET)
 
         set_dark_title_bar(self)
+
+        icon_path = resource_path("src/assets/app_icon.ico")
+        self.setWindowIcon(QIcon(icon_path))
 
         root_widget = QWidget()
         root_layout = QVBoxLayout(root_widget)

@@ -44,3 +44,4 @@ def guardar_archivo_dialogo(parent, default_filename: str, content: str) -> str:
         except Exception as e:
             print(f"Error al guardar el archivo: {e}")
     return ""
+
