@@ -12,21 +12,6 @@ Multiple Model Sizes: Choose between different Whisper model sizes (tiny, base, 
 
 Modern Desktop UI: Built using PyQt6 with full support for dark mode and clean visual indicators.
 
-*Project Structure*
-
-whisperscribe/
-├── src/
-│   ├── assets/          
-│   │   └── app_icon.ico
-│   ├── core/           
-│   │   └── utils.py
-│   ├── ui/
-│   │   ├── main_window.py
-│   │   └── styles.py
-│   └── main.py
-├── requirements.txt
-├── WhisperScribe.spec
-└── README.md
 
 *License*
 This project is licensed under the MIT License.
