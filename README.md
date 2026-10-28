@@ -14,4 +14,5 @@ Modern Desktop UI: Built using PyQt6 with full support for dark mode and clean v
 
 
 *License*
+
 This project is licensed under the MIT License.
